@@ -1,0 +1,60 @@
+using UnityEngine;
+using Unity.Netcode;
+
+public class GameManager : NetworkBehaviour
+{
+    [SerializeField] private GameObject playerPrefab;
+
+    void Start()
+    {
+        
+        if (IsServer)
+        {
+            SpawnPlayers();
+        }
+    }
+
+    void SpawnPlayers()
+    {
+        foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds)
+        {
+            
+            if (clientId != NetworkManager.Singleton.LocalClientId)
+            {
+                
+                if (!PlayerExists(clientId))
+                {
+                    SpawnPlayer(clientId);
+                }
+            }
+        }
+    }
+
+    void SpawnPlayer(ulong clientId)
+    {
+        
+        GameObject playerObject = Instantiate(playerPrefab);
+
+        
+        NetworkObject networkObject = playerObject.GetComponent<NetworkObject>();
+
+        
+        networkObject.SpawnAsPlayerObject(clientId);
+
+       
+        Debug.Log($"Player Object spawned for Client ID: {clientId}. Owner: {networkObject.OwnerClientId}, Local Client ID: {NetworkManager.Singleton.LocalClientId}");
+    }
+
+  
+    bool PlayerExists(ulong clientId)
+    {
+        foreach (var networkObject in NetworkManager.Singleton.SpawnManager.SpawnedObjectsList)
+        {
+            if (networkObject.OwnerClientId == clientId)
+            {
+                return true; 
+            }
+        }
+        return false; 
+    }
+}

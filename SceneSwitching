@@ -1,0 +1,33 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneSwitcher : MonoBehaviour
+{
+    public string sceneToLoad; 
+    public Vector2 playerSpawnPosition; 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(sceneToLoad);
+            
+            StartCoroutine(SetPlayerPosition());
+        }
+    }
+
+    //This is nonfunctional
+    private IEnumerator SetPlayerPosition()
+    {
+       
+        yield return new WaitForSeconds(0.1f); 
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = playerSpawnPosition;
+        }
+    }
+}
+

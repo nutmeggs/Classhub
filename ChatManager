@@ -1,0 +1,36 @@
+using UnityEngine;
+using TMPro;
+
+public class ChatManager : MonoBehaviour
+{
+    public TextMeshProUGUI chatBox;
+    public TMP_InputField chatInput;
+
+    void Start()
+    {
+
+        if (chatInput == null)
+        {
+            Debug.LogError("ChatInput is not assigned in the Inspector");
+            return;
+        }
+
+        if (chatBox == null)
+        {
+            Debug.LogError("ChatBox is not assigned in the Inspector");
+            return;
+        }
+        chatInput.onSubmit.AddListener(HandleChatInput);
+    }
+
+    void HandleChatInput(string text)
+    {
+  
+        if (!string.IsNullOrEmpty(text))
+        {
+            chatBox.text += "\n" + text;
+            chatInput.text = "";
+            chatInput.ActivateInputField();
+        }
+    }
+}

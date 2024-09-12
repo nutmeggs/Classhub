@@ -1,0 +1,37 @@
+using UnityEngine;
+using UnityEngine.UI;
+using Unity.Netcode;
+
+public class NetworkUIManager : MonoBehaviour
+{
+    [SerializeField] private Button hostButton;
+    [SerializeField] private Button clientButton;
+
+    void Start()
+    {
+        hostButton.onClick.AddListener(HostGame);
+        clientButton.onClick.AddListener(JoinGame);
+    }
+
+    void HostGame()
+    {
+        NetworkManager.Singleton.StartHost();
+        Debug.Log("Hosting World!");
+
+        HideButtons();
+    }
+
+    void JoinGame()
+    {
+        NetworkManager.Singleton.StartClient();
+        Debug.Log("Joining server...");
+
+        HideButtons();
+    }
+
+    void HideButtons()
+    {
+        hostButton.gameObject.SetActive(false);
+        clientButton.gameObject.SetActive(false);
+    }
+}

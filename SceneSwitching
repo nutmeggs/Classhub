@@ -1,3 +1,6 @@
+//Detects when the player enters the trigger zone and loads a new scene
+//Works with Unity's scene management to switch scenes
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,23 +14,11 @@ public class SceneSwitcher : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+//can specify whatever scene needs to be loaded
+//can use this exact script for all scene switches then customise scene in the navigator
             SceneManager.LoadScene(sceneToLoad);
-            
-            StartCoroutine(SetPlayerPosition());
         }
     }
 
-    //This is nonfunctional
-    private IEnumerator SetPlayerPosition()
-    {
-       
-        yield return new WaitForSeconds(0.1f); 
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            player.transform.position = playerSpawnPosition;
-        }
-    }
-}
-
+//will add a player spawnpoint function so the player can seamlessly walk through scenes from left to right
+// can use

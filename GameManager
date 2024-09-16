@@ -1,3 +1,6 @@
+//This script manages player spawning on the server side.
+//Communicates with NetworkManager to get client IDs and manage networked objects
+
 using UnityEngine;
 using Unity.Netcode;
 
@@ -7,7 +10,7 @@ public class GameManager : NetworkBehaviour
 
     void Start()
     {
-        
+        //Checks if the current instance is a server
         if (IsServer)
         {
             SpawnPlayers();
@@ -45,7 +48,9 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"Player Object spawned for Client ID: {clientId}. Owner: {networkObject.OwnerClientId}, Local Client ID: {NetworkManager.Singleton.LocalClientId}");
     }
 
-  
+
+//Checks if a player already exists for a given client ID by searching through the list of spawned objects
+
     bool PlayerExists(ulong clientId)
     {
         foreach (var networkObject in NetworkManager.Singleton.SpawnManager.SpawnedObjectsList)

@@ -1,3 +1,5 @@
+//Manages the user interface for starting and joining games
+//can merge with chat manager later probably idk
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
@@ -15,20 +17,22 @@ public class NetworkUIManager : MonoBehaviour
 
     void HostGame()
     {
+//uses the network manager to host a game
         NetworkManager.Singleton.StartHost();
         Debug.Log("Hosting World!");
-
+hide button after click
         HideButtons();
     }
 
     void JoinGame()
     {
+//uses the network manager to start a client
         NetworkManager.Singleton.StartClient();
         Debug.Log("Joining server...");
 
         HideButtons();
     }
-
+//hide buttons after execute
     void HideButtons()
     {
         hostButton.gameObject.SetActive(false);

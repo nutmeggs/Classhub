@@ -1,9 +1,9 @@
-//Manages player movement and jumping
+ //Manages player movement and jumping
 //Also checks if the player can move only if they are the host.
 
 using UnityEngine;
 using Unity.Netcode;
-
+//uses network behaviour to o ensure movement and jumping are only processed by the correct client or server
 public class PlayerMovement : NetworkBehaviour
 {
     private float horizontal;

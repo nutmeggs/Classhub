@@ -1,10 +1,19 @@
+//this code isnt so important but it essentially customises network transform for clients.
+//determines who has control over network transform
 using UnityEngine;
 using Unity.Netcode.Components;
 
 public class ClientNetworkTransform : NetworkTransform
 {
+//protected means it is accessible within its class and by derived classes
+//overriding indicates that this method is overriding a base class method with the same name and signature
+//bool - define whether the server is authoritative over the networked object's transform
     protected override bool OnIsServerAuthoritative()
     {
+//the server is not authoritative over the transform
         return false;
     }
 }
+//the client updates their info onto the server then to the other clients.
+//overall, client controls the network rather than the server
+//connects to

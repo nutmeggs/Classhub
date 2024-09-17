@@ -19,8 +19,10 @@ public class GameManager : NetworkBehaviour
 
     void SpawnPlayers()
     {
+// singleton - ensure that a class has only one instance, while providing a global access point to this instance.
         foreach (var clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
+//checks the clientIDs, if there is not one instance it will spawn player w/ client ID
             
             if (clientId != NetworkManager.Singleton.LocalClientId)
             {

@@ -9,12 +9,6 @@ public class ChatManager : MonoBehaviour
     void Start()
     {
 
-        if (chatInput == null)
-        {
-            Debug.LogError("ChatInput is not assigned in the Inspector");
-            return;
-        }
-
         if (chatBox == null)
         {
             Debug.LogError("ChatBox is not assigned in the Inspector");
